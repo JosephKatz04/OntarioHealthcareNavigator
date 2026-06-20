@@ -1,0 +1,110 @@
+[
+  {
+    "id": "ontario-ohip-application",
+    "title": "Apply for OHIP and get a health card",
+    "organization": "Government of Ontario",
+    "url": "https://www.ontario.ca/page/apply-ohip-and-get-health-card",
+    "category": "health_coverage",
+    "jurisdiction": "Ontario",
+    "language": "en",
+    "last_checked": "2026-06-20",
+    "reliability_level": "official_government",
+    "notes": "Starter metadata only. Do not summarize eligibility, documents, fees, or deadlines until the official text is reviewed and chunked."
+  },
+  {
+    "id": "health811-ontario",
+    "title": "Health811 Ontario",
+    "organization": "Government of Ontario",
+    "url": "https://health811.ontario.ca/",
+    "category": "health_navigation",
+    "jurisdiction": "Ontario",
+    "language": "en",
+    "last_checked": "2026-06-20",
+    "reliability_level": "official_government",
+    "notes": "Starter metadata only. Verify current service scope, contact options, language availability, and any urgent-care redirection wording before use."
+  },
+  {
+    "id": "health-care-connect",
+    "title": "Find a family doctor or nurse practitioner",
+    "organization": "Government of Ontario",
+    "url": "https://www.ontario.ca/page/find-family-doctor-or-nurse-practitioner",
+    "category": "primary_care",
+    "jurisdiction": "Ontario",
+    "language": "en",
+    "last_checked": "2026-06-20",
+    "reliability_level": "official_government",
+    "notes": "Starter metadata only. Verify official Health Care Connect wording and eligibility details before publishing guidance."
+  },
+  {
+    "id": "ontario-emergency-health-services",
+    "title": "Emergency health services",
+    "organization": "Government of Ontario",
+    "url": "https://www.ontario.ca/page/emergency-health-services",
+    "category": "emergency_care",
+    "jurisdiction": "Ontario",
+    "language": "en",
+    "last_checked": "2026-06-20",
+    "reliability_level": "official_government",
+    "notes": "Starter metadata only. Emergency content must keep the clear instruction to call 911 for possible medical emergencies."
+  },
+  {
+    "id": "settlement-org-health",
+    "title": "Health",
+    "organization": "Settlement.Org",
+    "url": "https://settlement.org/ontario/health/",
+    "category": "newcomer_support",
+    "jurisdiction": "Ontario",
+    "language": "en",
+    "last_checked": "2026-06-20",
+    "reliability_level": "reputable_nonprofit",
+    "notes": "Starter metadata only. Use for newcomer-oriented navigation after checking article dates and source references."
+  },
+  {
+    "id": "211-ontario",
+    "title": "211 Ontario",
+    "organization": "211 Ontario",
+    "url": "https://211ontario.ca/",
+    "category": "community_services",
+    "jurisdiction": "Ontario",
+    "language": "en",
+    "last_checked": "2026-06-20",
+    "reliability_level": "government_directory",
+    "notes": "Starter metadata only. Verify service search behavior, coverage, language options, and referral limits before use."
+  },
+  {
+    "id": "connexontario",
+    "title": "ConnexOntario",
+    "organization": "ConnexOntario",
+    "url": "https://www.connexontario.ca/",
+    "category": "mental_health_addictions",
+    "jurisdiction": "Ontario",
+    "language": "en",
+    "last_checked": "2026-06-20",
+    "reliability_level": "official_health_system",
+    "notes": "Starter metadata only. Verify current mental health, addictions, gambling support descriptions, hours, and contact methods."
+  },
+  {
+    "id": "ontario-health-at-home",
+    "title": "Ontario Health atHome",
+    "organization": "Ontario Health atHome",
+    "url": "https://ontariohealthathome.ca/",
+    "category": "home_and_community_care",
+    "jurisdiction": "Ontario",
+    "language": "en",
+    "last_checked": "2026-06-20",
+    "reliability_level": "official_health_system",
+    "notes": "Starter metadata only. Verify current service descriptions, regional access, eligibility language, and referral pathways before use."
+  },
+  {
+    "id": "ircc-newcomer-services-finder",
+    "title": "Find free newcomer services near you",
+    "organization": "Immigration, Refugees and Citizenship Canada",
+    "url": "https://ircc.canada.ca/english/newcomers/services/index.asp",
+    "category": "newcomer_support",
+    "jurisdiction": "Canada",
+    "language": "en",
+    "last_checked": "2026-06-20",
+    "reliability_level": "official_government",
+    "notes": "Starter metadata only. Use for settlement-service navigation, not for medical advice or Ontario healthcare eligibility decisions."
+  }
+]
