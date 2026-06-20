@@ -1,0 +1,68 @@
+[
+  {
+    "chunk_id": "connexontario__chunk_001",
+    "source_id": "connexontario",
+    "title": "ConnexOntario",
+    "organization": "ConnexOntario",
+    "url": "https://www.connexontario.ca/",
+    "category": "Mental health and addictions",
+    "language": "English",
+    "last_checked": "2026-06-20",
+    "text": "Content not extracted yet.\n\nThe ConnexOntario website could not be verified in this environment. Do not use this file for RAG answers until the official page content has been manually reviewed or extracted through an approved method.\n\nExpected use: mental health, addiction, and problem gambling service navigation, only after official text is verified."
+  },
+  {
+    "chunk_id": "emergency_care__chunk_001",
+    "source_id": "emergency_care",
+    "title": "Emergency health services",
+    "organization": "Government of Ontario",
+    "url": "https://www.ontario.ca/page/emergency-health-services",
+    "category": "Emergency care",
+    "language": "English",
+    "last_checked": "2026-06-20",
+    "text": "Content not extracted yet.\n\nThe Ontario emergency health services page could not be verified in this environment. Do not use this file for RAG answers until the official page content has been manually reviewed or extracted through an approved method.\n\nSafety rule for the product: if this is a medical emergency, call 911."
+  },
+  {
+    "chunk_id": "health_care_connect__chunk_001",
+    "source_id": "health_care_connect",
+    "title": "Find a doctor or nurse practitioner",
+    "organization": "Government of Ontario",
+    "url": "https://www.ontario.ca/page/find-family-doctor-or-nurse-practitioner",
+    "category": "Primary care",
+    "language": "English",
+    "last_checked": "2026-06-20",
+    "text": "The official Ontario page explains how to find a family doctor, nurse practitioner, or specialist, and includes information about the Health Care Connect program.\n\nThe page says a family doctor or nurse practitioner is a primary health care clinician for new, non-emergency health concerns.\n\nThe page lists two options for finding a family doctor or nurse practitioner who is accepting new patients: register with Health Care Connect, or contact an Ontario physician to ask if they are accepting new patients.\n\nThe page says Health Care Connect can search for a family doctor or nurse practitioner accepting new patients in a person’s community. It also says joining Health Care Connect does not guarantee that a clinician will be found immediately.\n\nDo not use this summary to decide eligibility or availability. The exact program requirements, contact methods, and current timelines must be read from the official page."
+  },
+  {
+    "chunk_id": "health811__chunk_001",
+    "source_id": "health811",
+    "title": "Health811 Ontario",
+    "organization": "Government of Ontario",
+    "url": "https://health811.ontario.ca/",
+    "category": "Health navigation",
+    "language": "English",
+    "last_checked": "2026-06-20",
+    "text": "Content not extracted yet.\n\nThe Health811 website blocked automated verification in this environment. Do not use this file for RAG answers until the official page content has been manually reviewed or extracted through an approved method.\n\nExpected use: Health navigation source for non-emergency questions, only after official text is verified."
+  },
+  {
+    "chunk_id": "ontario_ohip_apply__chunk_001",
+    "source_id": "ontario_ohip_apply",
+    "title": "Apply for OHIP and get a health card",
+    "organization": "Government of Ontario",
+    "url": "https://www.ontario.ca/page/apply-ohip-and-get-health-card",
+    "category": "OHIP",
+    "language": "English",
+    "last_checked": "2026-06-20",
+    "text": "The official Ontario page explains that the Ontario Health Insurance Plan (OHIP) pays for many health services people may need. It says people need to apply and, once approved, receive an Ontario health card that shows they are covered by OHIP.\n\nThe page includes information about health care in Ontario, what OHIP may cover, who may qualify, how to apply, reapplying, OHIP for babies, adopted children, military family members, visitors to Ontario, and requesting a review.\n\nThe page says OHIP applications are made in person at a ServiceOntario centre and that applicants need to bring a completed registration form and separate documents for status, Ontario residency, and identity.\n\nDo not use this summary to decide eligibility. The exact eligibility rules, document requirements, exceptions, and appeal deadlines must be read from the official page."
+  },
+  {
+    "chunk_id": "settlement_org__chunk_001",
+    "source_id": "settlement_org",
+    "title": "Health",
+    "organization": "Settlement.Org",
+    "url": "https://settlement.org/ontario/health/",
+    "category": "Newcomer health navigation",
+    "language": "English",
+    "last_checked": "2026-06-20",
+    "text": "Settlement.Org describes its Health section as information for newcomers about health insurance, finding a doctor or other medical professional, and health services for people and families.\n\nThe Health section links to topics including OHIP and health insurance, finding a doctor or medical professional, community and public health, mental health and addiction, emergency services, nutrition and healthy living, sexual and reproductive health, family health, refugee health, patients' rights and responsibilities, and disability.\n\nThe emergency services section includes newcomer-oriented information about hospital emergency department visits, getting help in an emergency, and finding a hospital.\n\nDo not use this summary as official government guidance. Use Settlement.Org as a newcomer-friendly support source and verify healthcare rules against official Ontario sources."
+  }
+]
