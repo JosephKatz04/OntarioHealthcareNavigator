@@ -62,6 +62,47 @@ const synonymMap: Record<string, string[]> = {
   support: ["services", "help"]
 };
 
+const multilingualRetrievalTerms: Record<string, string[]> = {
+  "健康卡": ["ohip", "health", "card"],
+  "医疗卡": ["ohip", "health", "card"],
+  "申请": ["apply", "application"],
+  "家庭医生": ["family", "doctor", "primary", "care"],
+  "医生": ["doctor", "physician"],
+  "急诊": ["emergency", "911"],
+  "心理健康": ["mental", "health", "support"],
+  "新移民": ["newcomer", "settlement"],
+  "carte santé": ["ohip", "health", "card"],
+  "médecin de famille": ["family", "doctor"],
+  "urgence": ["emergency", "911"],
+  "santé mentale": ["mental", "health"],
+  "tarjeta de salud": ["ohip", "health", "card"],
+  "médico de familia": ["family", "doctor"],
+  "emergencia": ["emergency", "911"],
+  "salud mental": ["mental", "health"],
+  "بطاقة صحية": ["ohip", "health", "card"],
+  "طبيب الأسرة": ["family", "doctor"],
+  "طوارئ": ["emergency", "911"],
+  "الصحة النفسية": ["mental", "health"],
+  "स्वास्थ्य कार्ड": ["ohip", "health", "card"],
+  "फैमिली डॉक्टर": ["family", "doctor"],
+  "आपातकाल": ["emergency", "911"],
+  "मानसिक स्वास्थ्य": ["mental", "health"],
+  "ہیلتھ کارڈ": ["ohip", "health", "card"],
+  "فیملی ڈاکٹر": ["family", "doctor"],
+  "ایمرجنسی": ["emergency", "911"],
+  "دماغی صحت": ["mental", "health"],
+  "ਸਿਹਤ ਕਾਰਡ": ["ohip", "health", "card"],
+  "ਫੈਮਿਲੀ ਡਾਕਟਰ": ["family", "doctor"],
+  "ਐਮਰਜੈਂਸੀ": ["emergency", "911"],
+  "ਮਾਨਸਿਕ ਸਿਹਤ": ["mental", "health"],
+  "health card": ["ohip", "health", "card"],
+  "family doctor": ["family", "doctor"],
+  "mental health": ["mental", "health"],
+  "doktor ng pamilya": ["family", "doctor"],
+  "emerhensiya": ["emergency", "911"],
+  "kalusugang pangkaisipan": ["mental", "health"]
+};
+
 function tokenize(value: string): string[] {
   return value
     .toLowerCase()
@@ -116,7 +157,7 @@ function scoreChunk(queryTokens: Set<string>, chunk: RagChunk): number {
 
 export function searchChunks(query: string, limit = 5): RagSearchResult[] {
   const chunks = loadChunks();
-  const queryTokens = expandTokens(tokenize(query));
+  const queryTokens = expandTokens(tokenize(buildEnglishRetrievalQuery(query)));
 
   if (queryTokens.size === 0) {
     return [];
@@ -130,6 +171,19 @@ export function searchChunks(query: string, limit = 5): RagSearchResult[] {
     .filter((chunk) => chunk.score > 0)
     .sort((a, b) => b.score - a.score || a.chunk_id.localeCompare(b.chunk_id))
     .slice(0, limit);
+}
+
+export function buildEnglishRetrievalQuery(query: string): string {
+  const lowerQuery = query.toLowerCase();
+  const expandedTerms: string[] = [];
+
+  for (const [term, englishTerms] of Object.entries(multilingualRetrievalTerms)) {
+    if (lowerQuery.includes(term.toLowerCase())) {
+      expandedTerms.push(...englishTerms);
+    }
+  }
+
+  return [query, ...expandedTerms].join(" ");
 }
 
 function loadChunks(): RagChunk[] {

@@ -7,6 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint .",
+    "test": "node --experimental-strip-types --disable-warning=MODULE_TYPELESS_PACKAGE_JSON tests/guardrails.test.ts",
     "typecheck": "tsc --noEmit",
     "check:sources": "node --experimental-strip-types --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/check_sources.ts",
     "ingest": "node --experimental-strip-types --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/chunk_documents.ts",

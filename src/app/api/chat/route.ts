@@ -1,9 +1,14 @@
 import { existsSync, readFileSync } from "node:fs";
 import { resolve } from "node:path";
 import { NextResponse } from "next/server";
+import { evaluateChatGuardrails } from "@/lib/chat/guardrails";
+import {
+  appendTranslationNote,
+  normalizeSupportedLanguage
+} from "@/lib/chat/languages";
 import { searchChunks, type RagSearchResult } from "@/lib/rag/searchChunks";
 
-type ConfidenceState = "low" | "medium" | "high";
+type ConfidenceState = "emergency" | "low" | "medium" | "high";
 
 type OpenAIResponse = {
   output_text?: string;
@@ -59,22 +64,9 @@ Do not give treatment plans.
 If emergency, tell user to call 911.
 If unsupported by retrieved source material, say: "I could not find that in the current Ontario source library."
 Keep answers plain-language and concise.
+Answer in the selected language. Keep official organization names recognizable. Keep the emergency number 911 unchanged.
 
 Answer only using retrieved source material. Do not use general knowledge. Do not claim that unverified placeholder chunks contain official guidance. Do not invent eligibility rules, fees, deadlines, required documents, service availability, wait times, or legal requirements.`;
-
-function hasEmergencyIntent(message: string) {
-  const normalized = message.toLowerCase();
-
-  return (
-    normalized.includes("911") ||
-    normalized.includes("emergency") ||
-    normalized.includes("urgent") ||
-    normalized.includes("chest pain") ||
-    normalized.includes("can't breathe") ||
-    normalized.includes("cannot breathe") ||
-    normalized.includes("unconscious")
-  );
-}
 
 function extractOpenAIText(data: OpenAIResponse): string | undefined {
   if (typeof data.output_text === "string" && data.output_text.trim()) {
@@ -261,7 +253,7 @@ ${buildChunkContext(chunks)}
 
 User message: ${message}
 
-Answer only from the retrieved source chunks. If the chunks do not support the answer, say exactly: "${buildNotFoundAnswer()}"`
+Answer in ${language}. Keep official organization names recognizable. Keep source URLs unchanged. Keep 911 unchanged. Answer only from the retrieved source chunks. If the chunks do not support the answer, say exactly: "${buildNotFoundAnswer()}"`
         }
       ]
     })
@@ -313,7 +305,7 @@ async function getOpenAIFileSearchAnswer(message: string, language: string) {
 
 User message: ${message}
 
-Use file_search to retrieve relevant Ontario Health Navigator source material. If the retrieved source material does not support the answer, say exactly: "${buildNotFoundAnswer()}"`
+If the user message is not English, first reformulate the user's healthcare navigation question into English for file_search. Use file_search to retrieve relevant Ontario Health Navigator source material. Answer in ${language}. Keep official organization names recognizable. Keep source URLs unchanged. Keep 911 unchanged. If the retrieved source material does not support the answer, say exactly: "${buildNotFoundAnswer()}"`
         }
       ],
       tools: [
@@ -387,15 +379,15 @@ export async function POST(request: Request) {
     );
   }
 
-  const language = typeof body.language === "string" ? body.language : "English";
+  const language = normalizeSupportedLanguage(body.language);
+  const guardrail = evaluateChatGuardrails(body.message, language);
 
-  if (hasEmergencyIntent(body.message)) {
+  if (guardrail.triggered) {
     return NextResponse.json({
-      answer:
-        "If this is a medical emergency, call 911. This chat cannot assess symptoms or decide whether it is safe to wait.",
+      answer: appendTranslationNote(guardrail.answer ?? buildSafeErrorAnswer(), language),
       sources: [],
-      confidence: "high" satisfies ConfidenceState,
-      state: "emergency"
+      confidence: (guardrail.confidence ?? "low") satisfies ConfidenceState,
+      state: guardrail.state
     });
   }
 
@@ -407,7 +399,7 @@ export async function POST(request: Request) {
       );
 
       return NextResponse.json({
-        answer: result.answer,
+        answer: appendTranslationNote(result.answer, language),
         sources: result.sources,
         confidence:
           result.state === "answered"
@@ -435,7 +427,7 @@ export async function POST(request: Request) {
 
   if (retrievedChunks.length === 0) {
     return NextResponse.json({
-      answer: buildNotFoundAnswer(),
+      answer: appendTranslationNote(buildNotFoundAnswer(), language),
       sources: [],
       confidence: "low" satisfies ConfidenceState,
       state: "not_found"
@@ -450,7 +442,7 @@ export async function POST(request: Request) {
     );
 
     return NextResponse.json({
-      answer,
+      answer: appendTranslationNote(answer, language),
       sources,
       confidence: "medium" satisfies ConfidenceState,
       state: "answered"

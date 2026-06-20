@@ -1,6 +1,7 @@
 "use client";
 
 import { FormEvent, useMemo, useState } from "react";
+import { supportedLanguages } from "@/lib/chat/languages";
 
 type ChatSource = {
   id: string;
@@ -15,7 +16,7 @@ type ChatMessage = {
   role: "user" | "assistant";
   text: string;
   sources?: ChatSource[];
-  confidence?: "low" | "medium" | "high";
+  confidence?: "emergency" | "low" | "medium" | "high";
 };
 
 const starterQuestions = [
@@ -24,20 +25,6 @@ const starterQuestions = [
   "When should I call 911?",
   "Where can I get mental health support?",
   "What services are available for newcomers?"
-];
-
-const languages = [
-  "English",
-  "French",
-  "Arabic",
-  "Mandarin",
-  "Punjabi",
-  "Spanish",
-  "Tagalog",
-  "Hindi",
-  "Urdu",
-  "Farsi",
-  "Ukrainian"
 ];
 
 function makeMessageId() {
@@ -49,7 +36,7 @@ export function ChatInterface() {
     {
       id: "welcome",
       role: "assistant",
-      text: "Hello. I can help you find newcomer-friendly Ontario healthcare information. This is a mock chat for the MVP, so answers are safe placeholders and not medical advice."
+      text: "Hello. I can help you find newcomer-friendly Ontario healthcare information. Answers must be grounded in Ontario source documents and are not medical advice."
     }
   ]);
   const [input, setInput] = useState("");
@@ -93,7 +80,7 @@ export function ChatInterface() {
       const data = (await response.json()) as {
         answer: string;
         sources: ChatSource[];
-        confidence: "low" | "medium" | "high";
+        confidence: "emergency" | "low" | "medium" | "high";
       };
 
       if (!data.answer) {
@@ -151,7 +138,7 @@ export function ChatInterface() {
             </h1>
             <p className="mt-3 max-w-3xl text-base leading-7 text-slate-700">
               Ask a general navigation question. This MVP uses a mock response
-              only and does not call OpenAI or any external AI service.
+              only when source retrieval or the AI service is unavailable.
             </p>
           </div>
 
@@ -256,7 +243,7 @@ export function ChatInterface() {
               onChange={(event) => setLanguage(event.target.value)}
               className="mt-2 w-full rounded-md border border-slate-300 bg-white px-3 py-3 text-base text-slate-900 shadow-sm focus:border-brand-blue focus:outline-none focus:ring-2 focus:ring-brand-blue/20"
             >
-              {languages.map((option) => (
+              {supportedLanguages.map((option) => (
                 <option key={option} value={option}>
                   {option}
                 </option>
