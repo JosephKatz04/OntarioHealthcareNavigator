@@ -15,6 +15,7 @@ type ChatMessage = {
   role: "user" | "assistant";
   text: string;
   sources?: ChatSource[];
+  confidence?: "low" | "medium" | "high";
 };
 
 const starterQuestions = [
@@ -89,14 +90,15 @@ export function ChatInterface() {
         })
       });
 
-      if (!response.ok) {
-        throw new Error("Chat request failed.");
-      }
-
       const data = (await response.json()) as {
         answer: string;
         sources: ChatSource[];
+        confidence: "low" | "medium" | "high";
       };
+
+      if (!data.answer) {
+        throw new Error("Chat response did not include an answer.");
+      }
 
       setMessages((current) => [
         ...current,
@@ -104,7 +106,8 @@ export function ChatInterface() {
           id: makeMessageId(),
           role: "assistant",
           text: data.answer,
-          sources: data.sources
+          sources: data.sources,
+          confidence: data.confidence
         }
       ]);
     } catch {
@@ -113,7 +116,8 @@ export function ChatInterface() {
         {
           id: makeMessageId(),
           role: "assistant",
-          text: "Sorry, the mock chat could not respond. No personal information was sent to an AI service."
+          text: "Sorry, the chat could not respond safely right now. Please verify information with official Ontario sources. If this is a medical emergency, call 911.",
+          confidence: "low"
         }
       ]);
     } finally {
@@ -170,6 +174,12 @@ export function ChatInterface() {
                 <p className="mt-2 whitespace-pre-wrap text-base leading-7">
                   {message.text}
                 </p>
+
+                {message.role === "assistant" && message.confidence ? (
+                  <p className="mt-3 inline-flex rounded-md border border-slate-300 bg-white px-3 py-1 text-xs font-bold uppercase tracking-wide text-slate-700">
+                    Confidence: {message.confidence}
+                  </p>
+                ) : null}
 
                 {message.sources && message.sources.length > 0 ? (
                   <div className="mt-4 grid gap-3">
