@@ -473,7 +473,8 @@ export async function POST(request: Request) {
       {
         answer: buildSafeErrorAnswer(),
         sources,
-        confidence: "low" satisfies ConfidenceState
+        confidence: "low" satisfies ConfidenceState,
+        state: "error"
       },
       { status: 503 }
     );
