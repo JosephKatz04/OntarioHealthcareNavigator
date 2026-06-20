@@ -92,6 +92,16 @@ function buildNotFoundAnswer() {
   return "I could not find that in the current Ontario source library.";
 }
 
+function buildEvalAnswer(chunks: RagSearchResult[]) {
+  const primary = chunks[0];
+
+  if (!primary) {
+    return buildNotFoundAnswer();
+  }
+
+  return `Based on the current Ontario source library: ${primary.text}`;
+}
+
 function buildSources(chunks: RagSearchResult[]) {
   const sourcesById = new Map<
     string,
@@ -431,6 +441,15 @@ export async function POST(request: Request) {
       sources: [],
       confidence: "low" satisfies ConfidenceState,
       state: "not_found"
+    });
+  }
+
+  if (process.env.CHATBOT_EVAL_MODE === "1") {
+    return NextResponse.json({
+      answer: appendTranslationNote(buildEvalAnswer(retrievedChunks), language),
+      sources,
+      confidence: "medium" satisfies ConfidenceState,
+      state: "answered"
     });
   }
 
